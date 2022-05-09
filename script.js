@@ -7,8 +7,11 @@ document.body.appendChild(renderer.domElement);
 
 var geometry = new THREE.BoxGeometry(1, 1, 1);
 var material = new THREE.MeshBasicMaterial({color: 0xff0000});
-var cube = new THREE.Mesh(geometry, material);
+
+var cube = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({color: 0xff0000}));
 scene.add(cube);
+
+
 
 camera.position.z = 5;
 
@@ -27,6 +30,30 @@ var animate = function() {
 
 animate();
 
+function onKeyDown(event) {
+    var keyCode = event.which;
+    var speed = 0.01;
+
+    console.log('keyCode', keyCode);
+
+    if (keyCode == 32) {
+        cube.position.set((Math.random()*2)-1, (Math.random()*2)-1, (Math.random()*2)-1);
+        cube.material.color.setHex(randomColor());
+        
+    }
+};
+
+const randomColor = () => {
+    let color = '0x';
+    for (let i = 0; i < 6; i++){
+       const random = Math.random();
+       const bit = (random * 16) | 0;
+       color += (bit).toString(16);
+    };
+    return color;
+ };
+
+document.addEventListener("keydown", onKeyDown, false);
 /*
 renderer = new THREE.WebGLRenderer( { antialias: true } );
 				renderer.setPixelRatio( window.devicePixelRatio );
