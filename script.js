@@ -22,8 +22,8 @@ scene.add( rectLight1 );
 var animate = function() {
     requestAnimationFrame(animate);
 
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
+    // cube.rotation.x += 0.01;
+    // cube.rotation.y += 0.01;
 
     renderer.render(scene, camera);
 };
@@ -43,6 +43,12 @@ function onKeyDown(event) {
     }
 };
 
+function onScroll(event) {
+    console.log("Scroll");
+    console.log(scrollY);
+	cube.rotation.x = scrollY/1000;
+};
+
 const randomColor = () => {
     let color = '0x';
     for (let i = 0; i < 6; i++){
@@ -53,6 +59,7 @@ const randomColor = () => {
     return color;
  };
 
+document.addEventListener("scroll", onScroll);
 document.addEventListener("keydown", onKeyDown, false);
 /*
 renderer = new THREE.WebGLRenderer( { antialias: true } );
